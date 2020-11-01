@@ -103,5 +103,76 @@ namespace IndianStateCensusAnalyser_NUnitTest
             //total no of rows excluding header are 29 in indian state census data.
             Assert.AreEqual(CensusAnalyserException.Exception.INCORRECT_HEADER, customException.exception);
         }
+
+        /// <summary>
+        /// Test Case 2.1
+        /// Getting the count of data in IndiaStateCodeData
+        /// </summary>
+
+        [Test]
+        public void GivenIndianCodeDataFile_WhenReturnShouldReturnCodeCount()
+        {
+            //census Analyser Class is Called and parameters are passed like country, indian state census data which is csv file and header file.
+            //add
+            totalRecord = censusAnalyser.LoadCensusData(CensusAnalyser.Country.INDIA, indiaStateCode, indianStateCodeHeaders);
+            //assert
+            //total no of rows excluding header are 37 in indian state census data.
+            Assert.AreEqual(37, totalRecord.Count);
+        }
+
+        /// <summary>
+        /// checking the program for incorrect file name which do not exist
+        /// test case 2.2
+        /// </summary>
+        [Test]
+        public void GivenWrongIndianCodeDataFile_WhenReadedShouldReturnCustomException()
+        {
+            //census Analyser Class is Called and parameters are passed like country, indian state census data which is csv file and header file.
+            //add
+            var customException = Assert.Throws<CensusAnalyserException>(() => censusAnalyser.LoadCensusData(CensusAnalyser.Country.INDIA, wrongIndiaStateCensusData, indianStateCensusHeaders));
+            //total no of rows excluding header are 29 in indian state census data.
+            Assert.AreEqual(CensusAnalyserException.Exception.FILE_NOT_FOUND, customException.exception);
+        }
+        [Test]
+        /// <summary>
+        /// checking the program for incorrect file type which do not exist
+        /// test case 2.3
+        /// </summary>
+        public void GivenWrongIndianCodeDataType_WhenReadedShouldReturnCustomException()
+        {
+            //census Analyser Class is Called and parameters are passed like country, indian state census data which is csv file and header file.
+            //add
+            var customException = Assert.Throws<CensusAnalyserException>(() => censusAnalyser.LoadCensusData(CensusAnalyser.Country.INDIA, indiaStateCodeText, indianStateCodeHeaders));
+            //total no of rows excluding header are 36 in indian state census data.
+            Assert.AreEqual(CensusAnalyserException.Exception.INVALID_FILE_TYPE, customException.exception);
+        }
+
+        /// <summary>
+        /// checking the program for incorrect delimiter is passed
+        /// test case 2.4
+        /// </summary>
+        [Test]
+        public void GivenIncorrectDelimiterForCodeData_WhenReadedShouldReturnCustomException()
+        {
+            //census Analyser Class is Called and parameters are passed like country, indian state census data which is csv file and header file.
+            //add
+            var customException = Assert.Throws<CensusAnalyserException>(() => censusAnalyser.LoadCensusData(CensusAnalyser.Country.INDIA, delimiterIndiaStateCode, indianStateCodeHeaders));
+            //total no of rows excluding header are 36 in indian state census data.
+            Assert.AreEqual(CensusAnalyserException.Exception.INCOREECT_DELIMITER, customException.exception);
+        }
+
+        /// <summary>
+        /// checking the program for incorrect header is passed
+        /// test case 2.5
+        /// </summary>
+        [Test]
+        public void GivenIncorrectHeaderForCodeData_WhenReadedShouldReturnCustomException()
+        {
+            //census Analyser Class is Called and parameters are passed like country, indian state census data which is csv file and header file.
+            //add
+            var customException = Assert.Throws<CensusAnalyserException>(() => censusAnalyser.LoadCensusData(CensusAnalyser.Country.INDIA, wrongIndiaStateCode, indianStateCodeHeaders));
+            //total no of rows excluding header are 36 in indian state census data.
+            Assert.AreEqual(CensusAnalyserException.Exception.INCORRECT_HEADER, customException.exception);
+        }
     }
 }
